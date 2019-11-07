@@ -1,6 +1,8 @@
-import  { ADD_FEATURE, REMOVE_FEATURE } from '../actions/Feature';
+import  { ADD_FEATURE, REMOVE_FEATURE, TOTAL } from '../actions/Feature';
 
-const initialState = {
+export const initialState = {
+    // (additionalPrice and car:) - (data from Line 5 through line 18) - are given thier initial state from App.js, this data was provided then inputted into this component as the initialState.
+    additionalPrice: 0, 
     car: {
         price: 26395,
         name: '2019 Ford Mustang',
@@ -16,30 +18,49 @@ const initialState = {
       ]
 };
 
+// reducer function that takes state and action where state is set to initialState
 export function reducer(state = initialState, action) {
-    let updatedFeatures = []
     switch (action.type) {
+        // addFeature action 
         case ADD_FEATURE:
-            return {
-                ...state,
-                car: {
-                    ...state.car,
-                    price: state.car.price + action.payload.price,
-                    features: [...state.car.features, action.payload]
-                },
-                additionalFeatures: []
-            };
+            // if the feature is already added, state is returned, else adds the feature
+            if (state.car.features.includes(action.payload)) {
+                return state;
+            } else {
+                return {
+                    ...state,
+                    car: {
+                        ...state.car,
+                        features: [...state.car.features, action.payload]
+                    }
+                };
+            }
+        // removeFeature action
         case REMOVE_FEATURE:
             return {
                 ...state,
                 car: {
                     ...state.car,
-                    price: state.car.price - action.payload.price,
-                    features: updatedFeatures
-                },
-                additionalFeatures: []
+                    features: state.car.features.filter(
+                        vehicle => vehicle.id !== action.payload.id
+                    )
+                }
             };
+        // total action
+        case TOTAL:
+            return {
+                ...state,
+                additionalPrice: state.additionalPrice + action.payload
+            }
         default:
             return state;
     };
 };
+
+
+
+
+
+
+
+// === All comments represent changes/additions to the component ===

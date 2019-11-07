@@ -9,7 +9,11 @@ const AddedFeatures = props => {
       {props.car.features.length ? (
         <ol type="1">
           {props.car.features.map(item => (
-            <AddedFeature key={item.id} feature={item} />
+            <AddedFeature 
+              key={item.id} 
+              feature={item}
+              removeFeature={props.removeFeature} 
+            />
           ))}
         </ol>
       ) : (
@@ -20,3 +24,11 @@ const AddedFeatures = props => {
 };
 
 export default AddedFeatures;
+
+
+
+
+
+
+// === (Line 15) was the only addition to this component ===
+// it takes in removeFeature from App.js and passes props

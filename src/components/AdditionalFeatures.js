@@ -8,7 +8,11 @@ const AdditionalFeatures = props => {
       {props.additionalFeatures.length ? (
         <ol type="1">
           {props.additionalFeatures.map(item => (
-            <AdditionalFeature key={item.id} feature={item} />
+            <AdditionalFeature 
+              key={item.id} 
+              feature={item}
+              buyItem={props.buyItem} 
+            />
           ))}
         </ol>
       ) : (
@@ -19,3 +23,10 @@ const AdditionalFeatures = props => {
 };
 
 export default AdditionalFeatures;
+
+
+
+
+
+// === (Line 14) was the only addition to this component ===
+// it takes in buyItem from App.js and passes props
